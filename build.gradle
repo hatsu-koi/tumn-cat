@@ -1,0 +1,41 @@
+buildscript {
+    ext.kotlin_version = "1.2.41"
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.2.41"
+}
+
+apply plugin: "kotlin"
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+sourceSets {
+    main.kotlin.srcDirs += "src"
+    main.resources.srcDirs += "resources"
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'org.jsoup:jsoup:1.11.3'
+    compile 'org.mongodb:mongo-java-driver:3.7.0'
+    compile 'com.beust:klaxon:3.0.1'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.tumn.cat.MainKt'
+    }
+    from { configurations.compile.collect {it.isDirectory() ? it : zipTree(it) } }
+}
