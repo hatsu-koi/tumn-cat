@@ -1,3 +1,4 @@
 {
+	"userAgent": "Tumn-Cat_Bot/v1.0",
 	"host": "mongodb://localhost:27017"
 }
