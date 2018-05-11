@@ -115,12 +115,12 @@ class NaverNewsCrawler(
 		val values = URLEncodedUtils.parse(uri, Charset.forName("UTF-8"))
 
 		val builder = URIBuilder(NAVER_NEWS_COMMENT_URI)
-		builder.addParameter("lang", "ko")
-		builder.addParameter("page", "1")
-		builder.addParameter("pageSize", "20")
-		builder.addParameter("pool", "cbox5")
-		builder.addParameter("sort", "FAVORITE")
-		builder.addParameter("ticket", "news")
+						.addParameter("lang", "ko")
+						.addParameter("page", "1")
+						.addParameter("pageSize", "20")
+						.addParameter("pool", "cbox5")
+						.addParameter("sort", "FAVORITE")
+						.addParameter("ticket", "news")
 		var oid: String? = null
 		var aid: String? = null
 		values.forEach {
