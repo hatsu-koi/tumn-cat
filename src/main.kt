@@ -7,7 +7,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.logging.Level
-import java.util.logging.LogManager
 import java.util.logging.Logger
 
 
@@ -22,12 +21,12 @@ fun main(args: Array<String>){
 
 	val config = Klaxon().parse<Config>(File("config.json"))!!
 
-	Logger.getLogger("org.mongodb.driver.connection").setLevel(Level.OFF);
-	Logger.getLogger("org.mongodb.driver.management").setLevel(Level.OFF);
-	Logger.getLogger("org.mongodb.driver.cluster").setLevel(Level.OFF);
-	Logger.getLogger("org.mongodb.driver.protocol.insert").setLevel(Level.OFF);
-	Logger.getLogger("org.mongodb.driver.protocol.query").setLevel(Level.OFF);
-	Logger.getLogger("org.mongodb.driver.protocol.update").setLevel(Level.OFF)
+	Logger.getLogger("org.mongodb.driver.connection").level = Level.OFF
+	Logger.getLogger("org.mongodb.driver.management").level = Level.OFF
+	Logger.getLogger("org.mongodb.driver.cluster").level = Level.OFF
+	Logger.getLogger("org.mongodb.driver.protocol.insert").level = Level.OFF
+	Logger.getLogger("org.mongodb.driver.protocol.query").level = Level.OFF
+	Logger.getLogger("org.mongodb.driver.protocol.update").level = Level.OFF
 
 	val c = MongoClients.create(config.host).getDatabase(config.db).getCollection("contents")
 
