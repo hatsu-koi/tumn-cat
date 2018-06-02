@@ -2,6 +2,7 @@ package com.tumn.cat
 
 import com.beust.klaxon.Klaxon
 import com.mongodb.client.MongoClients
+import com.tumn.cat.crawler.NaverNewsCrawler
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -47,7 +48,7 @@ fun main(args: Array<String>){
 			print("* Please provide the date to end with (yyyy-mm-dd): ")
 			val end = formatter.parse(readLine()!!)
 
-			NaverNewsCrawler(c, config.userAgent, 200, start, end).crawl()
+			NaverNewsCrawler(c, config.userAgent, 200, start, end).start()
 		}
 		else -> println("Unavailable option selected. Exiting.")
 	}
