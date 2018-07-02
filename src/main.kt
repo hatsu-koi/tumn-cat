@@ -2,6 +2,7 @@ package com.tumn.cat
 
 import com.beust.klaxon.Klaxon
 import com.mongodb.client.MongoClients
+import com.tumn.cat.crawler.DcCrawler
 import com.tumn.cat.crawler.NaverNewsCrawler
 import java.io.File
 import java.io.FileOutputStream
@@ -34,6 +35,7 @@ fun main(args: Array<String>){
 
 		| Available crawling sites
 		|* 1> Naver News
+		|* 2> DcInside
 		|* Select website to crawl from: """.trimMargin().format(config.host))
 
 	when(readLine()!!){
@@ -47,7 +49,16 @@ fun main(args: Array<String>){
 			print("* Please provide the date to end with (yyyy-mm-dd): ")
 			val end = formatter.parse(readLine()!!)
 
-			NaverNewsCrawler(c, config.userAgent, 200, start, end).start()
+			NaverNewsCrawler(c, config.userAgent, 1, start, end).start()
+		}
+		"2" -> {
+			print("""The crawler will crawl threads from DCInside.
+				|* Please provide number of threads to look up:""".trimMargin())
+			val num = readLine()!!.toInt()
+			print("""* Please provide board id: """)
+			val boardId = readLine()!!
+
+			DcCrawler(c, config.userAgent, 200, boardId, num).start()
 		}
 		else -> println("Unavailable option selected. Exiting.")
 	}

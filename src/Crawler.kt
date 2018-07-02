@@ -11,7 +11,7 @@ import kotlin.concurrent.timerTask
 abstract class Crawler(
 		protected val collection: MongoCollection<BsonDocument>,
 		protected val userAgent: String = "Tumn-Cat_Bot/v1.0",
-		protected val interval: Long
+		private val interval: Long
 	) {
 
 	private var queue: List<Queue> = emptyList()
