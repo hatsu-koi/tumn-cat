@@ -35,14 +35,14 @@ class DcCrawler(
 						}
 					}
 				}
-			}.join()
+			}.exceptionally { it.printStackTrace() }.join()
 
 			list.iterator().forEach { uri -> // FIXME Handle 404
 				connectAndGet(uri).thenApply {
 					collection.insertOne(
 							Document("content", it.select("div.s_write>table>tbody").text())
 							.append("uri", uri))
-				}.join()
+				}.exceptionally { it.printStackTrace() }.join()
 			}
 			list.clear()
 			print("\r* %d left".format(num))

@@ -22,7 +22,11 @@ abstract class Crawler(
 			if(queue.isNotEmpty()) {
 				val f = queue.first()
 				queue = queue.drop(1)
-				f.f.complete(Jsoup.connect(f.uri).userAgent(userAgent).get())
+				try {
+					f.f.complete(Jsoup.connect(f.uri).userAgent(userAgent).get())
+				}catch(e: Exception){
+					f.f.completeExceptionally(e)
+				}
 			}
 		}, interval, interval)
 

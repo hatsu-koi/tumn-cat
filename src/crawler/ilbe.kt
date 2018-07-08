@@ -6,7 +6,6 @@ import org.bson.Document
 import java.util.LinkedList
 
 const val ILBE_BOARD_URI = "http://www.ilbe.com/index.php?mid=%s&page=%d"
-const val ILBE_URI = "http://www.ilbe.com/%d"
 
 class IlbeCrawler(
 		collection: MongoCollection<Document>,
@@ -34,14 +33,14 @@ class IlbeCrawler(
 						}
 					}
 				}
-			}.join()
+			}.exceptionally { it.printStackTrace() }.join()
 
 			list.iterator().forEach { uri -> // FIXME Handle 404
 				connectAndGet(uri).thenApply {
 					collection.insertOne(
 							Document("content", it.select(".xe_content").text())
 									.append("uri", uri))
-				}.join()
+				}.exceptionally { it.printStackTrace() }.join()
 			}
 			list.clear()
 			print("\r* %d left".format(num))
